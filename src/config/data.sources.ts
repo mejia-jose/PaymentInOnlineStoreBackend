@@ -4,7 +4,7 @@ import { ConfigService,ConfigModule } from '@nestjs/config';
 
 ConfigModule.forRoot(
 {
-    envFilePath:'.develop.env',
+    envFilePath:'.env',
 });
 
 const configService = new ConfigService();//Permite usar la funcion para obtener el valor de variables de entorno

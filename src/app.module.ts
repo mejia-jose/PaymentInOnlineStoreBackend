@@ -11,7 +11,7 @@ import { TransactionsModule } from './modules/transactions/transactions.module';
   [
     /*Permite importar las variables de entorno*/
     ConfigModule.forRoot({
-      envFilePath:'.develop.env',
+      envFilePath:'.env',
       isGlobal: true, // Permite que el módulo ConfigModule esté disponible en toda la aplicación
     }),
 
