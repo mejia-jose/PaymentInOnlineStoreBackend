@@ -1,4 +1,4 @@
-import { Body, Controller, Post,Get, Param, Put, Delete } from '@nestjs/common';
+import { Body, Controller, Post,Get, Param, Put, Delete, Search } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiBody } from '@nestjs/swagger';
 import { ProductService } from '../services/product.service';
 import { ProductDTO, ProductUpdateDTO } from '../dto/product.dto';
@@ -81,6 +81,13 @@ export class ProductController
     public async getProductByID(@Param('id') idProduct:string)
     {
         return await this.productServices.findProductByID(idProduct);
+    }
+
+    @Get('search/:search')
+    public async getProductSearch(@Param('search') search:string)
+    {
+        console.log('controller: '+search)
+        return await this.productServices.findProductsBySearchParam(search);
     }
 
     @Put('update/:id')

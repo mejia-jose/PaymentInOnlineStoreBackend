@@ -77,6 +77,33 @@ export class ProductService
     }
   }
 
+  //Función para realizar busquedas de producots por ID, NAME, DESCRIPTIONS AND PRICE
+  public async findProductsBySearchParam(searchParam: string): Promise<ProductEntity[]>
+  {
+    try
+    {
+      const products = await this.productRepository
+      .createQueryBuilder('product')
+      .orWhere('product.name LIKE :searchParam', { searchParam: `%${searchParam}%` })
+      .orWhere('product.description LIKE :searchParam', { searchParam: `%${searchParam}%` })
+      .getMany();
+  
+       
+        if(!products)
+        {
+          //Se registra el error
+          throw new ErrorManager({ type:'BAD_REQUEST',message: '¡Ups! No se encontraron resultados para su búsqueda.'});
+        }
+
+      return products;
+      
+    } catch (error)
+    {
+      //Se ejecuta el error y se le muestra al usuario
+      throw ErrorManager.createSignatureError(error.message);
+    }
+  }
+
   //Función para actualizar un producto por ID
   public async updateProduct(body:ProductUpdateDTO,id:string) : Promise<UpdateResult | undefined>
   {
